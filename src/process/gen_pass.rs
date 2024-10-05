@@ -1,4 +1,5 @@
 use rand::prelude::*;
+use zxcvbn::zxcvbn;
 
 const UPPER: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const LOWER: &[u8] = b"abcdefghijklmnopqrstuvwxyz";
@@ -11,7 +12,7 @@ pub fn process_genpass(
     lower: bool,
     number: bool,
     symbol: bool,
-) -> anyhow::Result<String> {
+) -> anyhow::Result<()> {
     let mut rng = rand::thread_rng();
     let mut password = Vec::new();
     let mut chars = Vec::new();
@@ -37,5 +38,8 @@ pub fn process_genpass(
     }
     password.shuffle(&mut rng);
     let passwd = String::from_utf8(password)?;
-    Ok(passwd)
+    println!("{}", passwd);
+    let estimate = zxcvbn(&passwd, &[]);
+    println!("password strength: {}", estimate.score());
+    Ok(())
 }

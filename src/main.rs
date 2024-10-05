@@ -22,14 +22,13 @@ fn main() -> anyhow::Result<()> {
             //     format!("password.{}", opts.format)
             // };
             // rcli::;
-            let passwd = process_genpass(
+            process_genpass(
                 opts.length,
                 opts.uppercase,
                 opts.lowercase,
                 opts.number,
                 opts.symbol,
             )?;
-            println!("{}", passwd);
         }
     }
     Ok(())
