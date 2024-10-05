@@ -26,6 +26,18 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 - vscode-icons: 图标优化
 - YAML: YAML 文件支持
 
+### 安装 tokei 代码统计工具
+conda install -c conda-forge tokei
+
+### 添加 clap
+cargo add clap --features derive
+
+### 添加 serde
+cargo add serde --features derive
+
+### 添加 anyhow 错误处理
+cargo add anyhow
+
 ### 安装 cargo generate
 
 cargo generate 是一个用于生成项目模板的工具。它可以使用已有的 github repo 作为模版生成新的项目。
