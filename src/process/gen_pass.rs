@@ -40,6 +40,6 @@ pub fn process_genpass(
     let passwd = String::from_utf8(password)?;
     println!("{}", passwd);
     let estimate = zxcvbn(&passwd, &[]);
-    println!("password strength: {}", estimate.score());
+    eprintln!("password strength: {}", estimate.score());
     Ok(())
 }
