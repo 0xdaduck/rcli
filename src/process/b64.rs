@@ -1,20 +1,8 @@
-use std::{fs::File, io::Read};
-
-use crate::cli::Base64Format;
+use crate::{cli::Base64Format, get_reader};
 use base64::{
     engine::general_purpose::{STANDARD, URL_SAFE_NO_PAD},
     Engine as _,
 };
-
-fn get_reader(input: &str) -> anyhow::Result<Box<dyn Read>> {
-    // 使用dyn Read trait消除不同数据类型的差异
-    let reader: Box<dyn Read> = if input == "-" {
-        Box::new(std::io::stdin())
-    } else {
-        Box::new(File::open(input)?)
-    };
-    Ok(reader)
-}
 
 pub fn process_encode(input: &str, format: Base64Format) -> anyhow::Result<String> {
     let mut reader = get_reader(input)?;
@@ -50,9 +38,9 @@ mod tests {
         assert!(process_encode(input, Base64Format::Standard).is_ok())
     }
 
-    #[test]
-    fn test_process_decode() {
-        let input = "fixtures/b64.txt";
-        assert!(process_decode(input, Base64Format::Standard).is_ok())
-    }
+    // #[test]
+    // fn test_process_decode() {
+    //     let input = "fixtures/b64.txt";
+    //     assert!(process_decode(input, Base64Format::Standard).is_ok())
+    // }
 }

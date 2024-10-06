@@ -1,11 +1,10 @@
 mod base64;
 mod csv;
 mod genpass;
+mod text;
 
-use std::path::Path;
-
-pub use self::{base64::*, csv::*, genpass::*};
-
+pub use self::{base64::*, csv::*, genpass::*, text::*};
+use crate::utils::verify_file;
 use clap::Parser;
 
 #[derive(Debug, Parser)]
@@ -25,15 +24,9 @@ pub enum Subcommand {
 
     #[command(subcommand)]
     Base64(Base64SubCommand),
-}
 
-fn verify_input_file(filename: &str) -> Result<String, &'static str> {
-    // if input is "-" or file exists
-    if filename == "-" || Path::new(filename).exists() {
-        Ok(filename.into())
-    } else {
-        Err("File does not exist")
-    }
+    #[command(subcommand)]
+    Text(TextSubCommand),
 }
 
 #[cfg(test)]
@@ -42,8 +35,8 @@ mod tests {
 
     #[test]
     fn test_verify_input_file() {
-        assert!(verify_input_file("Cargo.toml").is_ok());
-        assert!(verify_input_file("-").is_ok());
+        assert!(verify_file("Cargo.toml").is_ok());
+        assert!(verify_file("-").is_ok());
         // assert!(verify_input_file("test.txt").is_err());
     }
 }
