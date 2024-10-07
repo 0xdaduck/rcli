@@ -1,2 +1,5 @@
+###
+GET http://localhost:8080/Cargo.toml
 
-GET http://localhost:8080/Cargo.toml1
+###
+GET http://localhost:8080/tower/Cargo.toml

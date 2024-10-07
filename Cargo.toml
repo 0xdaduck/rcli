@@ -25,3 +25,4 @@ tokio = { version = "1.40.0", features = ["rt", "rt-multi-thread", "fs", "net", 
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
 axum = { version = "0.7.7", features = ["http2", "query", "tracing", "ws"] }
+tower-http = { version = "0.6.1", features = ["compression-full", "cors", "trace", "fs"] }
