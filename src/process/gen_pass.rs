@@ -1,10 +1,10 @@
 use rand::prelude::*;
 use zxcvbn::zxcvbn;
 
-const UPPER: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const LOWER: &[u8] = b"abcdefghijklmnopqrstuvwxyz";
-const NUMBER: &[u8] = b"0123456789";
-const SYMBOL: &[u8] = b"!@#$%^&*()_+-=";
+const UPPER: &[u8] = b"ABCDEFGHJKLMNPQRSTUVWXYZ";
+const LOWER: &[u8] = b"abcdefghijklmnpqrstuvwxyz";
+const NUMBER: &[u8] = b"123456789";
+const SYMBOL: &[u8] = b"!@#$%^&*_+-=";
 
 pub fn process_genpass(
     length: u8,
@@ -41,4 +41,15 @@ pub fn process_genpass(
     let estimate = zxcvbn(&passwd, &[]);
     eprintln!("password strength: {}", estimate.score());
     Ok(passwd)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_process_genpass() {
+        let passwd = process_genpass(128, true, true, true, true).unwrap();
+        println!("{}", passwd);
+    }
 }

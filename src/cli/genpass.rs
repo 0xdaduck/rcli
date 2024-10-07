@@ -1,4 +1,8 @@
+use std::path::PathBuf;
+
 use clap::Parser;
+
+use crate::verify_path;
 
 #[derive(Debug, Parser)]
 pub struct GenPassOpts {
@@ -13,4 +17,6 @@ pub struct GenPassOpts {
     pub number: bool,
     #[arg(long, default_value_t = true)]
     pub symbol: bool,
+    #[arg(short, long, value_parser=verify_path)]
+    pub output: Option<PathBuf>,
 }

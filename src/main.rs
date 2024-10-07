@@ -28,7 +28,10 @@ fn main() -> anyhow::Result<()> {
                 opts.number,
                 opts.symbol,
             )?;
-            println!("generate password:{}", password)
+            match opts.output {
+                Some(output) => fs::write(output.join("password.txt"), password)?,
+                None => println!("{}", password),
+            }
         }
         Subcommand::Base64(subcmd) => {
             let output = match subcmd {
